@@ -12,10 +12,10 @@
                     <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">#ID</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Email</th>
+                          <th scope="col"><a href="/sorted/id">#ID</a></th>
+                          <th scope="col"><a href="/sorted/name">First</a></th>
+                          <th scope="col"><a href="/sorted/last_name">Last</a></th>
+                          <th scope="col"><a href="/sorted/email">Email</a></th>
                           </tr>
                         </thead>
                         <tbody>

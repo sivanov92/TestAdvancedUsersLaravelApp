@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class EditController extends Controller
 {
@@ -27,26 +28,49 @@ class EditController extends Controller
     //
     public function index()
     {    
-        return view('edit');
+        $user = User::find(Auth::user()->id);
+        return view('edit')->with('user',$user);
     }
     public function update(Request $request)
     {
         //
+        $id = Auth::user()->id;
+        $user =  User::find($id);
+        if ($request->hasFile('image')) {
+            //  Let's do everything here
+            if ($request->file('image')->isValid()) {
+                //
+                $file_name = 'AvatarUser'.$id;
+                $extension = $request->image->extension();
+                $url = $request->image->storeAs('/storage/app', $file_name.".".$extension,'local');        
+                $user->avatar_name =$url;
+                //echo Storage::url($user->avatar_name);
+            }
+        }
         $this->validate($request,[
-            'name'=>'required',
-            'last_name'=>'required',
-            'email'=>'required',
-            'password'=>'required',
+            'name'=>'nullable',
+            'last_name'=>'nullable',
+            'email'=>'nullable',
+            'password'=>'nullable',
+            'avatar_name'=>'nullable',
 
         ]);
-        $id = Auth::user()->id;
-        print($id);
-        $user =  User::find($id);
-        $user->name = $request->input('name');
-        $user->last_name = $request->input('last_name');
-        $user->email = $request->input('email');
-        $user->password = $request->input('password');
-
+        if($request->has('name'))
+        {
+           $user->name = $request->input('name');
+        }
+        if($request->has('last_name'))
+        {
+            $user->last_name = $request->input('last_name');
+        }
+        if($request->has('email'))
+        {
+            $user->email = $request->input('email');
+        }
+        if($request->has('password'))
+        {
+             $user->password = $request->input('password');
+        }
         $user->save();
         return redirect('/');
 

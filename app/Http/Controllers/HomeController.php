@@ -27,4 +27,9 @@ class HomeController extends Controller
         $users = User::all();
         return view('home')->with('users',$users);
     }
+    public function Sorted($sortby)
+    {
+        $users = User::orderBy($sortby,'asc')->get();
+        return view('home')->with('users',$users);
+    }
 }

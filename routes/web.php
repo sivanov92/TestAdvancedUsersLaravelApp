@@ -16,6 +16,8 @@ use App\Http\Controllers\EditController;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('sorted/{sortBy}', [App\Http\Controllers\HomeController::class, 'Sorted'])->name('sort');
 
 Route::get('/edit', [App\Http\Controllers\EditController::class, 'index'])->name('edit');
 Route::put('/edit/update', [App\Http\Controllers\EditController::class, 'update'])->name('update');
+
