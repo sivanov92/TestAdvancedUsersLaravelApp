@@ -8,7 +8,9 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserRegisterred;
+use Illuminate\Support\Arr;
 class RegisterController extends Controller
 {
     /*
@@ -65,6 +67,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $users = User::all();
+        $emails = array();
+        foreach($users as $user){
+            Arr::add($user->email,$emails);
+        }
+        foreach ($emails as $recipient) {
+            Mail::to($recipient)->send(new UserRegisterred());
+        }
         return User::create([
             'name' => $data['name'],
             'last_name' => $data['last_name'],
