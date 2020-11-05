@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     /**
@@ -24,8 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('home')->with('users',$users);
+       // $users = User::all();
+       // return view('home')->with('users',$users);
+        $users = DB::table('users')->paginate(15);
+        return view('home', ['users' => $users]);
+
     }
     public function Sorted($sortby)
     {
