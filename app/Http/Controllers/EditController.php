@@ -42,8 +42,8 @@ class EditController extends Controller
                 //
                 $file_name = 'AvatarUser'.$id;
                 $extension = $request->image->extension();
-                $url = $request->image->storeAs('/storage/app', $file_name.".".$extension,'local');        
-                $user->avatar_name =$url;
+                $url = $request->image->storeAs('/storage/app/public', $file_name.".".$extension,'public');        
+                $user->avatar_name =$file_name.".".$extension;
                 //echo Storage::url($user->avatar_name);
             }
         }

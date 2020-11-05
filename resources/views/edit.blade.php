@@ -10,8 +10,8 @@
             <h2>Edit Your Profile</h2>
             </div>
         </div>
-        <div class="container container-lg ">
-        <img src="{{asset($user->avatar_name)}}" class="rounded mx-auto d-block" alt="NoAvatarPhoto">
+        <div class="container container-lg " style="margin-bottom: 2rem;">
+        <img src="{{asset('storage/'.$user->avatar_name)}}" class="rounded mx-auto d-block" alt="NoAvatarPhoto">
         </div>
         <div class="form-group  row">
            <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
