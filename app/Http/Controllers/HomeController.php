@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -24,10 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-       // $users = User::all();
+        $id = Auth::user()->id;
+        $user = User::find($id);
        // return view('home')->with('users',$users);
-        $users = DB::table('users')->paginate(15);
-        return view('home', ['users' => $users]);
+        $users = DB::table('users')->whereIn('id',$user->assigned)->paginate(15);
+        return view('home', ['users' => $users,'user'=>$user]);
 
     }
     public function Sorted($sortby)

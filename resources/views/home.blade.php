@@ -9,6 +9,11 @@
 
                 <div class="card-body">
                     <h1>Welcome to your Profile !</h1>
+                    @if($user->id<=5)
+                       <h2>You are a Leader</h2>
+                    @else
+                        <h2>You are a regular user</h2>   
+                    @endif    
                     <table class="table">
                         <thead>
                           <tr>
