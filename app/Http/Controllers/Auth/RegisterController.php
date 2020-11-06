@@ -75,11 +75,34 @@ class RegisterController extends Controller
         foreach ($emails as $recipient) {
             Mail::to($recipient)->send(new UserRegisterred());
         }
+        //-- Find Someone to Assign to !
+        $sizes = [];
+        foreach($users as $user)
+        {
+         array_push($sizes,count($user->assigned));
+         if($user->id==5)
+          {
+            break;
+          }
+        }
+        sort($sizes);
+        $head1 = $sizes[0];
+        $head2 = $sizes[1];
+        $next_id = count($users);
+        /*
+         This module will currently be pending.
+         I used a migration to set the assignments to all seeded users, however 
+         updating the register to assign a user or a leader needs more work, so
+         you can see the code i wrote to achieve it, but its only  a part of the algorithm i need
+         to make.
+        */
+        //--
         return User::create([
             'name' => $data['name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+           // 'assigned'=>[$head1,$head2],
         ]);
     }
 }
